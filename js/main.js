@@ -32,6 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 menuToggle.checked = false;
             }
         });
+        
+        // Close menu automatically when resizing to desktop width (Tailwind 'lg' breakpoint: 1024px)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && menuToggle.checked) {
+                menuToggle.checked = false;
+            }
+        });
     }
 
     // 3. Search Bar Functionality

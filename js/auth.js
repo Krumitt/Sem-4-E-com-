@@ -48,15 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('show-signup').addEventListener('click', () => {
             loginForm.classList.add('hidden');
             signupForm.classList.remove('hidden');
-            document.querySelector('h1').textContent = 'Create Account';
-            document.querySelector('.text-gray-500.text-sm').textContent = 'Sign up to start your adventure';
+            document.getElementById('auth-title').textContent = 'Create Account';
+            document.getElementById('auth-subtitle').textContent = 'Sign up to start your adventure';
         });
 
         document.getElementById('show-login').addEventListener('click', () => {
             signupForm.classList.add('hidden');
             loginForm.classList.remove('hidden');
-            document.querySelector('h1').textContent = 'Welcome Back';
-            document.querySelector('.text-gray-500.text-sm').textContent = 'Sign in to continue your adventure';
+            document.getElementById('auth-title').textContent = 'Welcome Back';
+            document.getElementById('auth-subtitle').textContent = 'Sign in to continue your adventure';
         });
 
         // Initialize users array in local storage if it doesn't exist

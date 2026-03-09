@@ -33,11 +33,11 @@ function renderCart() {
     const subtotalEl = document.getElementById('summary-subtotal');
     const taxEl = document.getElementById('summary-tax');
     const totalEl = document.getElementById('summary-total');
-    
+
     if (!container || !subtotalEl || !taxEl || !totalEl) return;
 
     const username = typeof getCurrentUser === 'function' ? getCurrentUser() : 'guest';
-    
+
     // If user is not logged in, show login prompt instead
     if (username === 'guest') {
         container.innerHTML = `
@@ -87,10 +87,10 @@ function renderCart() {
 
     cart.forEach(item => {
         subtotal += (item.price * item.quantity);
-        
+
         const itemEl = document.createElement('div');
         itemEl.className = 'flex gap-6 border dark:border-gray-700 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm relative';
-        
+
         itemEl.innerHTML = `
             <button onclick="removeFromCart('${item.id}')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,14 +108,29 @@ function renderCart() {
                 <div class="flex items-center justify-between">
                     <div class="flex items-center border dark:border-gray-600 rounded">
                         <button onclick="updateQuantity('${item.id}', -1)" class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 transition">-</button>
-                        <span class="px-3 py-1 font-medium text-black dark:text-white">${item.quantity}</span>
+                        <span id="qty-${item.id}" class="px-3 py-1 font-medium text-black dark:text-white">${item.quantity}</span>
                         <button onclick="updateQuantity('${item.id}', 1)" class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 transition">+</button>
                     </div>
-                    <p class="font-bold text-black dark:text-white">₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>
+                    <p id="total-${item.id}" class="font-bold text-black dark:text-white">₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>
                 </div>
             </div>
         `;
         container.appendChild(itemEl);
+    });
+
+    updateCartSummary(cart);
+}
+
+function updateCartSummary(cart) {
+    const subtotalEl = document.getElementById('summary-subtotal');
+    const taxEl = document.getElementById('summary-tax');
+    const totalEl = document.getElementById('summary-total');
+
+    if (!subtotalEl || !taxEl || !totalEl) return;
+
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += (item.price * item.quantity);
     });
 
     // Update Summary
@@ -129,24 +144,39 @@ function renderCart() {
 }
 
 // Attached to window to be accessible from inline onClick handlers in HTML
-window.updateQuantity = function(productId, change) {
+window.updateQuantity = function (productId, change) {
     let cart = getCartData();
     const itemIndex = cart.findIndex(p => p.id === productId);
-    
+
     if (itemIndex > -1) {
         cart[itemIndex].quantity += change;
-        
+
         // Remove item if quantity drops to 0
         if (cart[itemIndex].quantity <= 0) {
             cart.splice(itemIndex, 1);
+            saveCartData(cart);
+            renderCart(); // We must re-render the whole UI to remove the element frame completely
+            return;
         }
-        
+
         saveCartData(cart);
-        renderCart(); // Re-render the UI
+
+        // In-place DOM update prevents the image from flashing/refreshing
+        const item = cart[itemIndex];
+        const qtyEl = document.getElementById(`qty-${productId}`);
+        const totalEl = document.getElementById(`total-${productId}`);
+
+        if (qtyEl && totalEl) {
+            qtyEl.innerText = item.quantity;
+            totalEl.innerText = `₹${(item.price * item.quantity).toLocaleString('en-IN')}`;
+            updateCartSummary(cart);
+        } else {
+            renderCart(); // Fallback
+        }
     }
 };
 
-window.removeFromCart = function(productId) {
+window.removeFromCart = function (productId) {
     let cart = getCartData();
     cart = cart.filter(p => p.id !== productId);
     saveCartData(cart);
@@ -163,11 +193,11 @@ function handleCheckout() {
         }
         return;
     }
-    
+
     // Clear the cart
     saveCartData([]);
     renderCart(); // Re-render the UI
-    
+
     // Show success message and redirect
     if (typeof showToast === 'function') {
         showToast("Order placed successfully! Redirecting...");
