@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Men | SideQuest</title>
+    <link rel="icon" type="image/png" href="../assets/images/logos/logo.png">
+
+    <!-- Tailwind CDN & Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script>
+        // Prevent FOUC by applying dark mode immediately before body renders
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <style>
+        .slide {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.7s ease;
+            position: absolute;
+            inset: 0;
+        }
+
+        input:checked+.slide {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+
+</head>
+
+<body class="overflow-x-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Page Wrapper -->
+    <div id="page-wrapper" class="min-h-screen">
+
+        <!-- ================= NAVBAR ================= -->
+        <header class="w-full border-b dark:border-gray-700 sticky top-0 z-50 bg-white dark:bg-gray-800 transition-colors duration-300">
+
+            <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative">
+
+                <!-- Logo + Brand -->
+                <a href="index.html" class="flex items-center gap-3">
+
+                    <!-- SVG Logo -->
+                    <svg viewBox="0 0 200 200" class="h-12 w-12" xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Top Mountain -->
+                        <path d="M20 90 
+                           L70 40 
+                           L95 65 
+                           L115 50 
+                           L160 90 
+                           L140 85 
+                           L115 70 
+                           L95 85 
+                           L70 60 
+                           Z" fill="currentColor" />
+
+                        <!-- Bottom Reflection -->
+                        <path d="M20 110 
+                           L70 160 
+                           L95 135 
+                           L115 150 
+                           L160 110 
+                           L140 115 
+                           L115 130 
+                           L95 115 
+                           L70 140 
+                           Z" fill="currentColor" />
+                    </svg>
+
+                    <!-- Brand Name -->
+                    <span class="font-extrabold text-3xl tracking-wide">
+                        SideQuest
+                    </span>
+
+                </a>
+
+
+                <!-- Hidden checkbox (menu state) -->
+                <input type="checkbox" id="menu-toggle" class="hidden peer">
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex gap-10 font-semibold text-lg">
+                    <a href="men.html" class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Men
+                    </a>
+
+                    <a href="women.html"
+                        class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Women
+                    </a>
+
+                    <a href="athletes.html"
+                        class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Athlete Favorites
+                    </a>
+                </nav>
+
+                <!-- Search Bar (Desktop) -->
+                <div
+                    class="hidden lg:flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2 mx-4 border border-transparent focus-within:border-gray-300 dark:focus-within:border-gray-500 focus-within:bg-white dark:focus-within:bg-gray-800 focus-within:shadow-sm transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" placeholder="Search gear..."
+                        class="bg-transparent border-none focus:outline-none text-sm ml-2 w-24 focus:w-64 transition-all duration-300 placeholder-gray-500 dark:placeholder-gray-400 text-gray-800 dark:text-white">
+                </div>
+
+
+                <!-- Right Actions (desktop only) -->
+                <div class="hidden lg:flex items-center gap-6 text-lg font-medium">
+
+                    <!-- Cart (Primary CTA) -->
+                    <a href="cart.html" class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition">
+                        Cart
+                    </a>
+
+                    <!-- Login (Secondary CTA) -->
+                    <a href="login.html" class="px-4 py-2 border dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        Login
+                    </a>
+
+                    <!-- Dark Mode Toggle -->
+                    <label id="dark-mode-btn"
+                        class="cursor-pointer p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <!-- Sun Icon (Show in Dark) -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 hidden dark:block text-yellow-500" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Moon Icon (Show in Light) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden text-gray-600 dark:text-gray-300"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </label>
+
+                </div>
+
+                <!-- Hamburger (mobile only) -->
+                <label for="menu-toggle" class="lg:hidden cursor-pointer flex flex-col gap-1" aria-label="Open menu">
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                </label>
+
+                <!-- Mobile Dropdown -->
+                <div class="absolute top-full left-0 w-full bg-white dark:bg-gray-800 border-t dark:border-gray-700
+                 hidden peer-checked:block lg:hidden">
+                    <nav class="flex flex-col gap-6 px-6 py-6 text-lg font-medium">
+                        <!-- Mobile Search -->
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
+                            <input type="text" placeholder="Search..."
+                                class="w-full bg-gray-100 dark:bg-gray-700 text-sm rounded-full py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-shadow text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                        </div>
+                        <a href="men.html" class="hover:underline">Men</a>
+                        <a href="women.html" class="hover:underline">Women</a>
+                        <a href="athletes.html" class="hover:underline">Athlete Favorites</a>
+                        <hr class="dark:border-gray-700">
+                        <a href="cart.html" class="hover:underline">Cart</a>
+                        <a href="login.html" class="hover:underline">Login</a>
+
+                        <!-- Mobile Toggle -->
+                        <div class="flex items-center justify-between border-t dark:border-gray-700 pt-4 mt-2">
+                            <span class="text-gray-600 dark:text-gray-300">Dark Mode</span>
+                            <button id="mobile-dark-mode-btn"
+                                class="cursor-pointer p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                <span class="text-sm font-bold">Toggle</span>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+        </header>
+
+
+
+        <!-- ================= PAGE TITLE ================= -->
+        <section class="max-w-7xl mx-auto px-6 pt-10">
+            <h1 class="text-3xl font-bold dark:text-white">Women's</h1>
+        </section>
+
+        <!-- ================= PRODUCT GRID & FILTERS ================= -->
+        <section class="max-w-7xl mx-auto px-6 py-6">
+            
+            <!-- Filter & Sort Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-8 gap-4 border dark:border-gray-700">
+                
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-4 items-center">
+                    <span class="font-semibold text-gray-700 dark:text-gray-300">Filter:</span>
+                    
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="filter-jackets" class="filter-checkbox form-checkbox h-4 w-4 text-black" checked>
+                        <span class="text-sm">Jackets & Vests</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="filter-fleece" class="filter-checkbox form-checkbox h-4 w-4 text-black" checked>
+                        <span class="text-sm">Fleece</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="filter-bottoms" class="filter-checkbox form-checkbox h-4 w-4 text-black" checked>
+                        <span class="text-sm">Bottoms</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="filter-footwear" class="filter-checkbox form-checkbox h-4 w-4 text-black" checked>
+                        <span class="text-sm">Footwear</span>
+                    </label>
+                </div>
+
+                <!-- Price Sorting -->
+                <div class="flex items-center gap-3">
+                    <label for="price-sort" class="font-semibold text-gray-700 dark:text-gray-300">Sort By:</label>
+                    <select id="price-sort" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black">
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Unified Grid Container -->
+            <div id="unified-products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products injected by JS -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="no-products-msg" class="hidden text-center py-12 text-gray-500 dark:text-gray-400">
+                No products found matching the selected filters.
+            </div>
+
+        </section>
+
+
+
+        <section class="relative w-full h-[90vh] overflow-hidden bg-slate-700">
+
+            <!-- Slide 1 -->
+            <input type="radio" name="hero" id="s1" checked hidden>
+            <div class="slide">
+                <img src="../assets/models/NF_women1.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- Slide 2 -->
+            <input type="radio" name="hero" id="s2" hidden>
+            <div class="slide">
+                <img src="../assets/models/Patagonia_women2.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- Slide 3 -->
+            <input type="radio" name="hero" id="s3" hidden>
+            <div class="slide">
+                <img src="../assets/models/NF_women1.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- Slide 4 -->
+            <input type="radio" name="hero" id="s4" hidden>
+            <div class="slide">
+                <img src="../assets/models/Patagonia_women2.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- Slide 5 -->
+            <input type="radio" name="hero" id="s5" hidden>
+            <div class="slide">
+                <img src="../assets/models/NF_women1.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- Slide 6 -->
+            <input type="radio" name="hero" id="s6" hidden>
+            <div class="slide">
+                <img src="../assets/models/Patagonia_women2.jpg" class="w-full h-full object-contain bg-transparent">
+            </div>
+
+            <!-- DOT NAVIGATION -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10">
+                <label for="s1" class="w-3 h-3 rounded-full bg-white cursor-pointer"></label>
+                <label for="s2" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
+                <label for="s3" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
+                <label for="s4" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
+                <label for="s5" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
+                <label for="s6" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
+            </div>
+
+        </section>
+
+
+
+
+
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="bg-gray-900 border-t dark:border-gray-800 text-gray-300">
+            <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row md:justify-between gap-8">
+
+                <!-- Brand -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-lg">SideQuest</h4>
+                    <p class="text-sm">
+                        Adventure-ready outdoor gear built for athletes, explorers, and trailblazers.
+                    </p>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+    <!-- Global JavaScript -->
+    <script src="../js/main.js"></script>
+    <!-- Auth JavaScript -->
+    <script src="../js/auth.js"></script>
+    <!-- Products JavaScript -->
+    <script src="../js/products.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Summit Series Top | SideQuest</title>
+    <link rel="icon" type="image/png" href="../assets/images/logos/logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="overflow-x-hidden">
+    <!-- Hidden Toggle Checkbox -->
+    <input type="checkbox" id="dark-mode-toggle" class="peer hidden">
+
+    <!-- Dark Mode Styles -->
+    <style>
+        /* Wrapper Dark Mode */
+        #dark-mode-toggle:checked~#page-wrapper {
+            background-color: #111827;
+            /* gray-900 */
+            color: #f3f4f6;
+            /* gray-100 */
+        }
+
+        /* Update background colors for generic white components (cards, header) */
+        #dark-mode-toggle:checked~#page-wrapper .bg-white {
+            background-color: #1f2937;
+            /* gray-800 */
+            color: #f3f4f6;
+        }
+
+        /* Update specific text colors */
+        #dark-mode-toggle:checked~#page-wrapper .text-gray-900 {
+            color: #f9fafb;
+            /* gray-50 */
+        }
+
+        #dark-mode-toggle:checked~#page-wrapper .text-gray-600,
+        #dark-mode-toggle:checked~#page-wrapper .text-gray-500 {
+            color: #d1d5db;
+            /* gray-300 */
+        }
+
+        #dark-mode-toggle:checked~#page-wrapper .text-gray-700 {
+            color: #e5e7eb;
+            /* gray-200 */
+        }
+
+        /* Border colors */
+        #dark-mode-toggle:checked~#page-wrapper .border-gray-200,
+        #dark-mode-toggle:checked~#page-wrapper .border-b {
+            border-color: #374151;
+            /* gray-700 */
+        }
+
+        /* Mobile menu specific fix */
+        #dark-mode-toggle:checked~#page-wrapper .absolute.bg-white {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+    </style>
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper" class="min-h-screen bg-white text-gray-900 transition-colors duration-300">
+        <!-- ================= NAVBAR ================= -->
+        <header class="w-full border-b sticky top-0 z-50 bg-white">
+
+            <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative">
+
+                <!-- Logo + Brand -->
+                <a href="index.html" class="flex items-center gap-3">
+
+                    <!-- SVG Logo -->
+                    <svg viewBox="0 0 200 200" class="h-12 w-12" xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Top Mountain -->
+                        <path d="M20 90 
+                           L70 40 
+                           L95 65 
+                           L115 50 
+                           L160 90 
+                           L140 85 
+                           L115 70 
+                           L95 85 
+                           L70 60 
+                           Z" fill="currentColor" />
+
+                        <!-- Bottom Reflection -->
+                        <path d="M20 110 
+                           L70 160 
+                           L95 135 
+                           L115 150 
+                           L160 110 
+                           L140 115 
+                           L115 130 
+                           L95 115 
+                           L70 140 
+                           Z" fill="currentColor" />
+                    </svg>
+
+                    <!-- Brand Name -->
+                    <span class="font-extrabold text-3xl tracking-wide">
+                        SideQuest
+                    </span>
+
+                </a>
+
+
+                <!-- Hidden checkbox (menu state) -->
+                <input type="checkbox" id="menu-toggle" class="hidden peer">
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex gap-10 font-semibold text-lg">
+                    <a href="men.html" class="border-b-2 border-transparent hover:border-black transition duration-200">
+                        Men
+                    </a>
+
+                    <a href="women.html"
+                        class="border-b-2 border-transparent hover:border-black transition duration-200">
+                        Women
+                    </a>
+
+                    <a href="athletes.html"
+                        class="border-b-2 border-transparent hover:border-black transition duration-200">
+                        Athlete Favorites
+                    </a>
+                </nav>
+
+                <!-- Search Bar (Desktop) -->
+                <div
+                    class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2 mx-4 border border-transparent focus-within:border-gray-300 focus-within:bg-white focus-within:shadow-sm transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" placeholder="Search gear..."
+                        class="bg-transparent border-none focus:outline-none text-sm ml-2 w-24 focus:w-64 transition-all duration-300 placeholder-gray-500 text-gray-800">
+                </div>
+
+
+                <!-- Right Actions (desktop only) -->
+                <div class="hidden lg:flex items-center gap-6 text-lg font-medium">
+
+                    <!-- Cart (Primary CTA) -->
+                    <a href="cart.html" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+                        Cart
+                    </a>
+
+                    <!-- Login (Secondary CTA) -->
+                    <a href="login.html" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+                        Login
+                    </a>
+
+                    <!-- Dark Mode Toggle -->
+                    <label for="dark-mode-toggle"
+                        class="cursor-pointer p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <!-- Sun Icon (Show in Dark) -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 hidden peer-checked:block text-yellow-500" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Moon Icon (Show in Light) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block peer-checked:hidden text-gray-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </label> </a>
+
+                </div>
+
+                <!-- Hamburger (mobile only) -->
+                <label for="menu-toggle" class="lg:hidden cursor-pointer flex flex-col gap-1" aria-label="Open menu">
+                    <span class="block w-6 h-0.5 bg-black"></span>
+                    <span class="block w-6 h-0.5 bg-black"></span>
+                    <span class="block w-6 h-0.5 bg-black"></span>
+                </label>
+
+                <!-- Mobile Dropdown -->
+                <div class="absolute top-full left-0 w-full bg-white border-t
+                 hidden peer-checked:block lg:hidden">
+                    <nav class="flex flex-col gap-6 px-6 py-6 text-lg font-medium">
+                        <!-- Mobile Search -->
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
+                            <input type="text" placeholder="Search..."
+                                class="w-full bg-gray-100 text-sm rounded-full py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-black transition-shadow">
+                        </div>
+                        <a href="men.html" class="hover:underline">Men</a>
+                        <a href="women.html" class="hover:underline">Women</a>
+                        <a href="athletes.html" class="hover:underline">Athlete Favorites</a>
+                        <hr>
+                        <a href="cart.html" class="hover:underline">Cart</a>
+                        <a href="login.html" class="hover:underline">Login</a>
+
+                        <!-- Mobile Toggle -->
+                        <div class="flex items-center justify-between border-t pt-4 mt-2">
+                            <span class="text-gray-600">Dark Mode</span>
+                            <label for="dark-mode-toggle"
+                                class="cursor-pointer p-2 rounded-full bg-[#757575] hover:bg-[#858585]">
+                                <span class="text-sm font-bold">Toggle</span>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- ================= PRODUCT DETAILS ================= -->
+        <main class="max-w-7xl mx-auto px-6 py-12">
+            <!-- Breadcrumbs -->
+            <nav class="text-sm text-gray-500 mb-8">
+                <a href="index.html" class="hover:underline text-gray-700">Home</a>
+                <span class="mx-2">/</span>
+                <a href="athletes.html" class="hover:underline text-gray-700">Athlete Favorites</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-900 font-medium">Summit Series Top</span>
+            </nav>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Image Section -->
+                <div class="sticky top-24 h-fit">
+                    <div class="border rounded-xl overflow-hidden bg-gray-50 group cursor-zoom-in">
+                        <img src="../assets/athletes/AlexProd/Alex_top.jpg" alt="Summit Series Top"
+                            class="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                </div>
+
+                <!-- Details Section -->
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-sm text-blue-600 font-semibold tracking-wide uppercase mb-2">The North Face</h2>
+                        <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">Summit Series Top</h1>
+                        <div class="flex items-center gap-2 mt-2">
+                            <div class="flex text-yellow-500 text-sm">
+                                <!-- 4.5 Stars -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300 fill-current"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                            </div>
+                            <span class="text-gray-500 text-sm">(120 ratings)</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-b py-4">
+                        <p class="text-3xl font-bold text-gray-900">₹8,999</p>
+                        <p class="text-sm text-gray-500 mt-1">Inclusive of all taxes</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Description</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Engineered for the vertical world. The Summit Series Top offers breathable protection and
+                            unrestricted movement for your hardest climbs. Designed in collaboration with Alex Honnold,
+                            this
+                            top features moisture-wicking technology and reinforced durability for rugged environments.
+                        </p>
+                    </div>
+
+                    <!-- Product Options -->
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-3">Select Size</h3>
+                        <div class="flex gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="size" class="peer sr-only">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center border rounded-md peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black transition">
+                                    S
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="size" class="peer sr-only">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center border rounded-md peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black transition">
+                                    M
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="size" class="peer sr-only" checked>
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center border rounded-md peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black transition">
+                                    L
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="size" class="peer sr-only">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center border rounded-md peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black transition">
+                                    XL
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col gap-3 pt-4">
+                        <button
+                            class="w-full bg-yellow-400 text-black py-3 rounded-full font-bold hover:bg-yellow-500 transition shadow-sm">
+                            Add to Cart
+                        </button>
+                        <button
+                            class="w-full bg-orange-500 text-white py-3 rounded-full font-bold hover:bg-orange-600 transition shadow-sm">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 text-center text-xs text-gray-500">
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Authentic Gear</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                            <span>Secure Payment</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                            <span>Easy Returns</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="bg-gray-900 text-gray-300">
+            <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row md:justify-between gap-8">
+
+                <!-- Brand -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-lg">SideQuest</h4>
+                    <p class="text-sm">
+                        Adventure-ready outdoor gear built for athletes, explorers, and trailblazers.
+                    </p>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+    <!-- Global JavaScript -->
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

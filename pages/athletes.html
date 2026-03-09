@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Athlete Favorites | SideQuest</title>
+    <link rel="icon" type="image/png" href="../assets/images/logos/logo.png">
+
+    <!-- Tailwind CDN & Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script>
+        // Prevent FOUC by applying dark mode immediately before body renders
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+
+<body class="overflow-x-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Page Wrapper -->
+    <div id="page-wrapper" class="min-h-screen">
+        <!-- ================= NAVBAR ================= -->
+        <header class="w-full border-b dark:border-gray-700 sticky top-0 z-50 bg-white dark:bg-gray-800 transition-colors duration-300">
+
+            <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative">
+
+                <!-- Logo + Brand -->
+                <a href="index.html" class="flex items-center gap-3">
+
+                    <!-- SVG Logo -->
+                    <svg viewBox="0 0 200 200" class="h-12 w-12" xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Top Mountain -->
+                        <path d="M20 90 
+                           L70 40 
+                           L95 65 
+                           L115 50 
+                           L160 90 
+                           L140 85 
+                           L115 70 
+                           L95 85 
+                           L70 60 
+                           Z" fill="currentColor" />
+
+                        <!-- Bottom Reflection -->
+                        <path d="M20 110 
+                           L70 160 
+                           L95 135 
+                           L115 150 
+                           L160 110 
+                           L140 115 
+                           L115 130 
+                           L95 115 
+                           L70 140 
+                           Z" fill="currentColor" />
+                    </svg>
+
+                    <!-- Brand Name -->
+                    <span class="font-extrabold text-3xl tracking-wide">
+                        SideQuest
+                    </span>
+
+                </a>
+
+
+                <!-- Hidden checkbox (menu state) -->
+                <input type="checkbox" id="menu-toggle" class="hidden peer">
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex gap-10 font-semibold text-lg">
+                    <a href="men.html" class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Men
+                    </a>
+
+                    <a href="women.html"
+                        class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Women
+                    </a>
+
+                    <a href="athletes.html"
+                        class="border-b-2 border-transparent hover:border-black dark:hover:border-white transition duration-200">
+                        Athlete Favorites
+                    </a>
+                </nav>
+
+                <!-- Search Bar (Desktop) -->
+                <div
+                    class="hidden lg:flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2 mx-4 border border-transparent focus-within:border-gray-300 dark:focus-within:border-gray-500 focus-within:bg-white dark:focus-within:bg-gray-800 focus-within:shadow-sm transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" placeholder="Search gear..."
+                        class="bg-transparent border-none focus:outline-none text-sm ml-2 w-24 focus:w-64 transition-all duration-300 placeholder-gray-500 dark:placeholder-gray-400 text-gray-800 dark:text-white">
+                </div>
+
+
+                <!-- Right Actions (desktop only) -->
+                <div class="hidden lg:flex items-center gap-6 text-lg font-medium">
+
+                    <!-- Cart (Primary CTA) -->
+                    <a href="cart.html" class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition">
+                        Cart
+                    </a>
+
+                    <!-- Login (Secondary CTA) -->
+                    <a href="login.html" class="px-4 py-2 border dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        Login
+                    </a>
+
+                    <!-- Dark Mode Toggle -->
+                    <label id="dark-mode-btn"
+                        class="cursor-pointer p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <!-- Sun Icon (Show in Dark) -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 hidden dark:block text-yellow-500" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Moon Icon (Show in Light) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden text-gray-600 dark:text-gray-300"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </label>
+
+                </div>
+
+                <!-- Hamburger (mobile only) -->
+                <label for="menu-toggle" class="lg:hidden cursor-pointer flex flex-col gap-1" aria-label="Open menu">
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-black dark:bg-white"></span>
+                </label>
+
+                <!-- Mobile Dropdown -->
+                <div class="absolute top-full left-0 w-full bg-white dark:bg-gray-800 border-t dark:border-gray-700
+                 hidden peer-checked:block lg:hidden">
+                    <nav class="flex flex-col gap-6 px-6 py-6 text-lg font-medium">
+                        <!-- Mobile Search -->
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
+                            <input type="text" placeholder="Search..."
+                                class="w-full bg-gray-100 dark:bg-gray-700 text-sm rounded-full py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-shadow text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                        </div>
+                        <a href="men.html" class="hover:underline">Men</a>
+                        <a href="women.html" class="hover:underline">Women</a>
+                        <a href="athletes.html" class="hover:underline">Athlete Favorites</a>
+                        <hr class="dark:border-gray-700">
+                        <a href="cart.html" class="hover:underline">Cart</a>
+                        <a href="login.html" class="hover:underline">Login</a>
+
+                        <!-- Mobile Toggle -->
+                        <div class="flex items-center justify-between border-t dark:border-gray-700 pt-4 mt-2">
+                            <span class="text-gray-600 dark:text-gray-300">Dark Mode</span>
+                            <button id="mobile-dark-mode-btn"
+                                class="cursor-pointer p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                <span class="text-sm font-bold">Toggle</span>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+
+            </div>
+        </header>
+        <!-- ================= PAGE INTRO ================= -->
+        <section class="max-w-7xl mx-auto px-6 py-16">
+            <h1 class="text-4xl font-extrabold mb-4 dark:text-white">Athlete Favorites</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+                Gear trusted by world-class athletes in the most demanding environments.
+            </p>
+        </section>
+
+        <!-- ================= ATHLETE BANNERS ================= -->
+        <section class="w-full space-y-16">
+
+            <!-- Alex Honnold -->
+            <a href="#alex" class="group block relative min-h-screen overflow-hidden bg-slate-900">
+
+                <img src="../assets/athletes/alex.jpg" class="absolute inset-0 w-full h-full object-contain
+                    transition-transform duration-700 ease-in-out group-hover:scale-105">
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+                <div class="relative z-10 max-w-7xl mx-auto h-full flex items-center px-6">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-300 mb-2">
+                            The North Face · Climbing
+                        </p>
+                        <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-4">
+                            Alex Honnold
+                        </h2>
+                        <p class="text-lg text-gray-200 max-w-xl">
+                            Precision, endurance, and minimalism trusted on the world’s hardest climbs.
+                        </p>
+                    </div>
+                </div>
+
+            </a>
+
+            <!-- Kit Deslauriers -->
+            <a href="#kit" class="group block relative min-h-screen overflow-hidden bg-slate-900">
+
+                <img src="../assets/athletes/kit.jpg" class="absolute inset-0 w-full h-full object-contain
+                    transition-transform duration-700 ease-in-out group-hover:scale-105">
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+                <div class="relative z-10 max-w-7xl mx-auto h-full flex items-center px-6">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-300 mb-2">
+                            The North Face · Ski Mountaineering
+                        </p>
+                        <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-4">
+                            Kit Deslauriers
+                        </h2>
+                        <p class="text-lg text-gray-200 max-w-xl">
+                            Alpine systems built for speed, safety, and extreme elevation.
+                        </p>
+                    </div>
+                </div>
+
+            </a>
+
+            <!-- Tommy Caldwell -->
+            <a href="#tommy" class="group block relative min-h-screen overflow-hidden bg-slate-900">
+
+                <img src="../assets/athletes/tommy.jpg" class="absolute inset-0 w-full h-full object-contain
+                    transition-transform duration-700 ease-in-out group-hover:scale-105">
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+                <div class="relative z-10 max-w-7xl mx-auto h-full flex items-center px-6">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-300 mb-2">
+                            Patagonia · Big Wall Climbing
+                        </p>
+                        <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-4">
+                            Tommy Caldwell
+                        </h2>
+                        <p class="text-lg text-gray-200 max-w-xl">
+                            Equipment refined on multi-day ascents and vertical endurance.
+                        </p>
+                    </div>
+                </div>
+
+            </a>
+
+            <!-- Caroline Gleich -->
+            <a href="#caroline" class="group block relative min-h-screen overflow-hidden bg-slate-900">
+
+                <img src="../assets/athletes/caroline.jpg" class="absolute inset-0 w-full h-full object-contain
+                    transition-transform duration-700 ease-in-out group-hover:scale-105">
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+                <div class="relative z-10 max-w-7xl mx-auto h-full flex items-center px-6">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-300 mb-2">
+                            Patagonia · Ski & Advocacy
+                        </p>
+                        <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-4">
+                            Caroline Gleich
+                        </h2>
+                        <p class="text-lg text-gray-200 max-w-xl">
+                            Performance-driven gear with purpose beyond the mountains.
+                        </p>
+                    </div>
+                </div>
+
+            </a>
+
+        </section>
+
+
+
+        <!-- ================= DIVIDER ================= -->
+        <div class="max-w-7xl mx-auto px-6 my-20 border-t dark:border-gray-700"></div>
+
+        <!-- ================= BUNDLES ================= -->
+
+        <!-- Alex Honnold Bundle -->
+        <section id="alex" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-[40vh]">
+            <h2 class="text-3xl font-bold mb-6">Alex Honnold's Climbing Kit</h2>
+
+            <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- Top -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900 relative">
+                    <a href="prod_card_desc.html" class="block">
+                        <img src="../assets/athletes/AlexProd/Alex_top.jpg" class="h-48 w-full object-contain">
+                        <h3 class="mt-3 font-semibold text-lg text-black hover:text-blue-600 transition">Summit Series Top</h3>
+                    </a>
+                    <p class="text-sm text-gray-600 mt-1">₹8,999</p>
+                    <button onclick="addToCart('ath_ah1')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Bottom -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/AlexProd/Alex_bottoms.jpeg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Climbing Pants</h3>
+                    <p class="text-sm text-gray-600">₹6,999</p>
+                    <button onclick="addToCart('ath_ah2')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Shoes -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/AlexProd/Alex_shoes.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Approach Shoes</h3>
+                    <p class="text-sm text-gray-600">₹12,999</p>
+                    <button onclick="addToCart('ath_ah3')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kit Deslauriers Bundle -->
+        <section id="kit" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-[40vh]">
+            <h2 class="text-3xl font-bold mb-6">Kit Deslauriers' Alpine Kit</h2>
+
+            <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- Top -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/KitProd/Kit_top.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Alpine Shell</h3>
+                    <p class="text-sm text-gray-600">₹10,999</p>
+                    <button onclick="addToCart('ath_kd1')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Bottom -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/KitProd/Kit_bottoms.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Expedition Bibs</h3>
+                    <p class="text-sm text-gray-600">₹14,999</p>
+                    <button onclick="addToCart('ath_kd2')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Shoes -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/KitProd/Kit_shoes.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Mountaineering Boots</h3>
+                    <p class="text-sm text-gray-600">₹18,999</p>
+                    <button onclick="addToCart('ath_kd3')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tommy Caldwell Bundle -->
+        <section id="tommy" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-[40vh]">
+            <h2 class="text-3xl font-bold mb-6 dark:text-white">Tommy Caldwell’s Big Wall Kit</h2>
+
+            <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- Top -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/TommyProd/Tommy_top.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Big Wall Hoodie</h3>
+                    <p class="text-sm text-gray-600">₹6,499</p>
+                    <button onclick="addToCart('ath_tc1')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Bottom -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/TommyProd/Tommy_bottoms.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Rock Pants</h3>
+                    <p class="text-sm text-gray-600">₹5,999</p>
+                    <button onclick="addToCart('ath_tc2')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Shoes -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/TommyProd/Tommy_shoes.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">TC Pro Shoes</h3>
+                    <p class="text-sm text-gray-600">₹11,999</p>
+                    <button onclick="addToCart('ath_tc3')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Caroline Gleich Bundle -->
+        <section id="caroline" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-[40vh]">
+            <h2 class="text-3xl font-bold mb-6 dark:text-white">Caroline Gleich’s Touring Kit</h2>
+
+            <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- Top -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/CarolineProd/Caroline_top.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Ski Jacket</h3>
+                    <p class="text-sm text-gray-600">₹12,499</p>
+                    <button onclick="addToCart('ath_cg1')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Bottom -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/CarolineProd/Caroline_bottom.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Ski Bibs</h3>
+                    <p class="text-sm text-gray-600">₹13,999</p>
+                    <button onclick="addToCart('ath_cg2')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+                <!-- Shoes -->
+                <div class="min-w-[260px] border p-4 hover:shadow-lg transition-shadow bg-white text-gray-900">
+                    <img src="../assets/athletes/CarolineProd/shoes.jpg" class="h-48 w-full object-contain">
+                    <h3 class="mt-3 font-semibold text-black">Touring Boots</h3>
+                    <p class="text-sm text-gray-600">₹24,999</p>
+                    <button onclick="addToCart('ath_cg3')" class="mt-3 w-full bg-black text-white py-2 font-medium hover:bg-gray-800 transition">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="bg-gray-900 border-t dark:border-gray-800 text-gray-300">
+            <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row md:justify-between gap-8">
+
+                <!-- Brand -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-lg">SideQuest</h4>
+                    <p class="text-sm text-gray-400">
+                        Adventure-ready outdoor gear built for athletes, explorers, and trailblazers.
+                    </p>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:underline hover:text-white transition">About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:underline hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+    <!-- Global JavaScript -->
+    <script src="../js/main.js"></script>
+    <!-- Auth JavaScript -->
+    <script src="../js/auth.js"></script>
+    <!-- Products JavaScript -->
+    <script src="../js/products.js"></script>
+</body>
+
+</html>
