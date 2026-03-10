@@ -34,6 +34,16 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* DOT NAVIGATION STYLES */
+        input#s1:checked ~ div.absolute label[for="s1"],
+        input#s2:checked ~ div.absolute label[for="s2"],
+        input#s3:checked ~ div.absolute label[for="s3"],
+        input#s4:checked ~ div.absolute label[for="s4"],
+        input#s5:checked ~ div.absolute label[for="s5"],
+        input#s6:checked ~ div.absolute label[for="s6"] {
+            opacity: 1;
+        }
     </style>
 
 </head>
@@ -307,7 +317,7 @@
 
             <!-- DOT NAVIGATION -->
             <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10">
-                <label for="s1" class="w-3 h-3 rounded-full bg-white cursor-pointer"></label>
+                <label for="s1" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
                 <label for="s2" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
                 <label for="s3" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>
                 <label for="s4" class="w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer"></label>

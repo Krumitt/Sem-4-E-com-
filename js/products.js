@@ -17,6 +17,8 @@ const products = [
         image: "../assets/MenProducts/JacketsVests/Jacket2.jpg",
         category: "men",
         subCategory: "JacketsVests",
+        featured: false
+
     },
     {
         id: "m_f1",
@@ -24,7 +26,9 @@ const products = [
         price: 3499,
         image: "../assets/MenProducts/Fleece/Fleece1.jpg",
         category: "men",
-        subCategory: "Fleece"
+        subCategory: "Fleece",
+        featured: true
+
     },
     {
         id: "m_b1",
@@ -32,7 +36,9 @@ const products = [
         price: 3999,
         image: "../assets/MenProducts/Bottoms/Bottoms1.jpg",
         category: "men",
-        subCategory: "Bottoms"
+        subCategory: "Bottoms",
+        featured: true
+
     },
     {
         id: "m_ft1",
@@ -41,7 +47,7 @@ const products = [
         image: "../assets/MenProducts/Footwear/Foot1.jpg",
         category: "men",
         subCategory: "Footwear",
-        featured: true
+        featured: false
     },
 
     // --- WOMEN'S GEAR ---
@@ -60,7 +66,9 @@ const products = [
         price: 3499,
         image: "../assets/WomenProducts/Fleece/Fleece1.jpg",
         category: "women",
-        subCategory: "Fleece"
+        subCategory: "Fleece",
+        featured: true
+
     },
     {
         id: "w_b1",
@@ -68,7 +76,9 @@ const products = [
         price: 3999,
         image: "../assets/WomenProducts/Bottoms/Bottoms1.jpg",
         category: "women",
-        subCategory: "Bottoms"
+        subCategory: "Bottoms",
+        featured: false
+
     },
     {
         id: "w_ft1",
@@ -77,9 +87,9 @@ const products = [
         image: "../assets/WomenProducts/Footwear/Foot1.jpg",
         category: "women",
         subCategory: "Footwear",
-        featured: true
+        featured: false
     },
-    
+
     // --- ATHLETE BUNDLES ---
     // Alex Honnold
     {
@@ -106,7 +116,7 @@ const products = [
         category: "athlete",
         subCategory: "AlexHonnold"
     },
-    
+
     // Kit Deslauriers
     {
         id: "ath_kd1",
@@ -132,7 +142,7 @@ const products = [
         category: "athlete",
         subCategory: "KitDeslauriers"
     },
-    
+
     // Tommy Caldwell
     {
         id: "ath_tc1",
@@ -158,7 +168,7 @@ const products = [
         category: "athlete",
         subCategory: "TommyCaldwell"
     },
-    
+
     // Caroline Gleich
     {
         id: "ath_cg1",
@@ -228,10 +238,10 @@ function addToCart(productId) {
         // Use auth.js function to get current username
         const username = getCurrentUser();
         const cartKey = `cart_${username}`;
-        
+
         // Retrieve existing cart or create empty array
         let userCart = JSON.parse(localStorage.getItem(cartKey)) || [];
-        
+
         // Check if item already exists in cart, increment quantity if so
         const existingItem = userCart.find(item => item.id === productId);
         if (existingItem) {
@@ -239,7 +249,7 @@ function addToCart(productId) {
         } else {
             userCart.push({ ...product, quantity: 1 });
         }
-        
+
         // Save back to local storage
         localStorage.setItem(cartKey, JSON.stringify(userCart));
         if (typeof showToast === 'function') {
@@ -298,7 +308,7 @@ function renderFilteredGrid(pageCategory) {
         filteredProducts.forEach(product => {
             const card = createProductCard(product);
             // remove horizontal scrolling constraints for grid
-            card.classList.remove('min-w-[280px]'); 
+            card.classList.remove('min-w-[280px]');
             container.appendChild(card);
         });
     }
